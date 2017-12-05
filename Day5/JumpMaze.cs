@@ -24,13 +24,13 @@ namespace Day5
             while (true)
             {
                 steps++;
-                var currentOffset = Offsets[position];
-                if (int.Parse(currentOffset) >= Offsets.Length - position)
+                var currentOffset = int.Parse(Offsets[position]);
+                if (currentOffset >= Offsets.Length - position)
                 {
                     return steps;
                 }
-                Offsets[position] = (int.Parse(currentOffset) + 1).ToString();
-                position = position + int.Parse(currentOffset);
+                Offsets[position] = (currentOffset >= 3 ? currentOffset - 1 : currentOffset + 1).ToString();
+                position = position + currentOffset;
             }
         }
     }

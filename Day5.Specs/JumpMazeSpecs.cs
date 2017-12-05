@@ -43,7 +43,7 @@ namespace Day5.Specs
         {
             var maze = "0 3 0 1 -3";
             var steps = ClassUnderTest.GetStepsToEscape(maze);
-            Assert.AreEqual(5, steps);
+            Assert.AreEqual(10, steps);
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace Day5.Specs
                        " -145 -977 -550 -577 -249 -743 -711 -4 -442 -252 -897 -130 -528 -906 -809 -228" +
                        " -548 -695 -912 -676 -936 -209 -312 -951 -671 -898 -205 -730 -873 -798 -943";
             var steps = ClassUnderTest.GetStepsToEscape(maze);
-            Assert.AreEqual(360603, steps);
+            Assert.AreEqual(25347697, steps);
         }
     }
 }
