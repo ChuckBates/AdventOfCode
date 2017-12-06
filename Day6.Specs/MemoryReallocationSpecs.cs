@@ -74,7 +74,7 @@ namespace Day6.Specs
         {
             var banks = new int[] { };
             var cycles = ClassUnderTest.GetRedistributionCycles(banks);
-            Assert.AreEqual(0, cycles);
+            Assert.AreEqual(0, cycles[0]);
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace Day6.Specs
         {
             var banks = new[] { 1 };
             var cycles = ClassUnderTest.GetRedistributionCycles(banks);
-            Assert.AreEqual(0, cycles);
+            Assert.AreEqual(0, cycles[0]);
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Day6.Specs
         {
             var banks = new[] { 1, 1 };
             var cycles = ClassUnderTest.GetRedistributionCycles(banks);
-            Assert.AreEqual(2, cycles);
+            Assert.AreEqual(2, cycles[0]);
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace Day6.Specs
         {
             var banks = new[] { 1, 0, 1 };
             var cycles = ClassUnderTest.GetRedistributionCycles(banks);
-            Assert.AreEqual(5, cycles);
+            Assert.AreEqual(5, cycles[0]);
         }
 
         [Test]
@@ -106,7 +106,23 @@ namespace Day6.Specs
         {
             var banks = new[] { 2, 8, 8, 5, 4, 2, 3, 1, 5, 5, 1, 2, 15, 13, 5, 14 };
             var cycles = ClassUnderTest.GetRedistributionCycles(banks);
-            Assert.AreEqual(3156, cycles);
+            Assert.AreEqual(3156, cycles[0]);
+        }
+
+        [Test]
+        public void when_calculating_size_of_memory_reallocation_infinite_loop()
+        {
+            var banks = new[] { 0, 2, 7, 0 };
+            var cycles = ClassUnderTest.GetRedistributionCycles(banks);
+            Assert.AreEqual(4, cycles[1]);
+        }
+
+        [Test]
+        public void when_calculating_size_of_memory_reallocation_infinite_loop_for_puzzle_input()
+        {
+            var banks = new[] { 2, 8, 8, 5, 4, 2, 3, 1, 5, 5, 1, 2, 15, 13, 5, 14 };
+            var cycles = ClassUnderTest.GetRedistributionCycles(banks);
+            Assert.AreEqual(1610, cycles[1]);
         }
     }
 }

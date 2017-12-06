@@ -4,28 +4,30 @@ namespace Day6
 {
     public class MemoryReallocation
     {
-        public int GetRedistributionCycles(int[] banks)
+        public int[] GetRedistributionCycles(int[] banks)
         {
             var cycles = 0;
-            var states = new HashSet<string>();
+            var counter = 0;
+            var states = new Dictionary<string, int>();
+            states.Add(string.Join(", ", banks), counter++);
+
             if (banks.Length > 1)
             {
-                states.Add(string.Join(", ", banks));
                 while (true)
                 {
                     banks = RedistributeMemory(banks);
                     cycles++;
 
-                    if (states.Contains(string.Join(", ", banks)))
+                    if (states.ContainsKey(string.Join(", ", banks)))
                     {
                         break;
                     }
 
-                    states.Add(string.Join(", ", banks));
+                    states.Add(string.Join(", ", banks), counter++);
                 }
             }
 
-            return cycles;
+            return new[] { cycles, cycles - states[string.Join(", ", banks)] };
         }
 
         public int[] RedistributeMemory(int[] banks)
