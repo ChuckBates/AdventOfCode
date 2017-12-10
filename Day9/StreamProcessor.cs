@@ -7,9 +7,16 @@
             var level = 1;
             var score = 0;
             var mode = '{';
+            var garbageCount = 0;
+
             for (var i = 0; i < stream.ToCharArray().Length; i++)
             {
                 var character = stream.ToCharArray()[i];
+                if (mode.Equals('<') && !character.Equals('!') && !character.Equals('>'))
+                {
+                    garbageCount++;
+                }
+
                 switch (character)
                 {
                     case '{' when !mode.Equals('<'):
@@ -31,7 +38,7 @@
                 }
             }
 
-            return score;
+            return garbageCount;
         }
     }
 }
