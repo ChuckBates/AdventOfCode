@@ -33,7 +33,7 @@ namespace Day12
             return pieces;
         }
 
-        public int PipesConnectedToProgramZero(string pipeList)
+        public int PipesConnectedToProgram(string pipeList)
         {
             pipes = ParsePipes(pipeList);
             var connectedPrograms = new List<int>();
@@ -41,6 +41,23 @@ namespace Day12
             AddConnectedPrograms(connectedPrograms, pipes[0]);
 
             return connectedPrograms.Count;
+        }
+
+        public int CountProgramGroups(string pipeList)
+        {
+            pipes = ParsePipes(pipeList);
+            var programGroups = 0;
+            var connectedPrograms = new List<int>();
+            foreach (var program in pipes)
+            {
+                if (!connectedPrograms.Contains(program.Key))
+                {
+                    AddConnectedPrograms(connectedPrograms, program.Value);
+                    programGroups++;
+                }
+            }
+
+            return programGroups;
         }
 
         public void AddConnectedPrograms(List<int> connectedPrograms, int[] programs)

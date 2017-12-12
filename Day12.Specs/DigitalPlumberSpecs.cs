@@ -48,8 +48,16 @@ namespace Day12.Specs
         public void when_counting_connected_programs_example()
         {
             var pipes = "0 <-> 2\n1 <-> 1\n2 <-> 0,3,4\n3 <-> 2,4\n4 <-> 2,3,6\n5 <-> 6\n6 <-> 4,5";
-            var count = ClassUnderTest.PipesConnectedToProgramZero(pipes);
+            var count = ClassUnderTest.PipesConnectedToProgram(pipes);
             Assert.AreEqual(6, count);
+        }
+
+        [Test]
+        public void when_counting_program_groups_example()
+        {
+            var pipes = "0 <-> 2\n1 <-> 1\n2 <-> 0,3,4\n3 <-> 2,4\n4 <-> 2,3,6\n5 <-> 6\n6 <-> 4,5";
+            var count = ClassUnderTest.CountProgramGroups(pipes);
+            Assert.AreEqual(2, count);
         }
 
         [Test]
@@ -2055,8 +2063,8 @@ namespace Day12.Specs
                         "1997 <-> 554\n" +
                         "1998 <-> 168\n" +
                         "1999 <-> 818";
-            var count = ClassUnderTest.PipesConnectedToProgramZero(pipes);
-            Assert.AreEqual(115, count);
+            var count = ClassUnderTest.CountProgramGroups(pipes);
+            Assert.AreEqual(221, count);
         }
     }
 }
