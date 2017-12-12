@@ -6,67 +6,59 @@ namespace Day10.Specs
     public class KnotHashSpecs
     {
         KnotHash ClassUnderTest;
+        ImportantValues Values;
 
         [TestFixtureSetUp]
         public void Setup()
         {
             ClassUnderTest = new KnotHash();
-            ClassUnderTest.KeyList = ClassUnderTest.GenerateList();
-        }
 
-        [Test]
-        public void when_hashing_a_knot_and_the_lengths_are_null_empty()
-        {
-            var result = ClassUnderTest.Hash(null);
-            Assert.AreEqual(0, result);
-
-            result = ClassUnderTest.Hash(new int[] { });
-            Assert.AreEqual(0, result);
-        }
-
-        [Test]
-        public void when_hashing_a_knot_and_there_is_one_length_of_one()
-        {
-            var lengths = new[] { 1 };
-            var result = ClassUnderTest.Hash(lengths);
-            Assert.AreEqual(0, result);
-        }
-
-        [Test]
-        public void when_hashing_a_knot_and_there_is_one_length_greater_than_256()
-        {
-            var lengths = new[] { 1000 };
-            var result = ClassUnderTest.Hash(lengths);
-            Assert.AreEqual(0, result);
-        }
-
-        [Test]
-        public void when_hashing_a_knot_with_test_marks_example()
-        {
-            ClassUnderTest.KeyList = GenerateList();
-
-            var lengths = new[] { 3, 4, 1, 5 };
-            var result = ClassUnderTest.Hash(lengths);
-            Assert.AreEqual(12, result);
-        }
-
-        [Test]
-        public void when_hashing_a_knot_with_puzzle_input()
-        {
-            var lengths = new[] { 157, 222, 1, 2, 177, 254, 0, 228, 159, 140, 249, 187, 255, 51, 76, 30 };
-            var result = ClassUnderTest.Hash(lengths);
-            Assert.AreEqual(62238, result);
-        }
-
-        private int[] GenerateList()
-        {
-            var list = new int[5];
-            for (int i = 0; i < 5; i++)
+            Values = new ImportantValues
             {
-                list[i] = i;
-            }
+                CurrentPosition = 0,
+                SkipSize = 0,
+                MarkList = ClassUnderTest.GenerateList()
+            };
+        }
 
-            return list;
+        [Test]
+        public void when_hasing_a_knot_example_1()
+        {
+            var lengths = "AoC 2017";
+            var result = ClassUnderTest.Hash2(lengths);
+            Assert.AreEqual("33efeb34ea91902bb2f59c9920caa6cd", result);
+        }
+
+        [Test]
+        public void when_hasing_a_knot_puzzle_input()
+        {
+            var lengths = "157,222,1,2,177,254,0,228,159,140,249,187,255,51,76,30";
+            var result = ClassUnderTest.Hash2(lengths);
+            Assert.AreEqual("2b0c9cc0449507a0db3babd57ad9e8d8", result);
+        }
+
+        [Test]
+        public void when_converting_1_2_3_to_ASCII()
+        {
+            var lengths = "1,2,3";
+            var result = ClassUnderTest.ConvertToASCII(lengths);
+            Assert.AreEqual(new[] { 49, 44, 50, 44, 51, 17, 31, 73, 47, 23 }, result);
+        }
+
+        [Test]
+        public void when_getting_the_dense_hash_exapmle()
+        {
+            var lengths = new[] { 65, 27, 9, 1, 4, 3, 40, 50, 91, 7, 6, 0, 2, 5, 68, 22 };
+            var denseHash = ClassUnderTest.DenseHash(lengths);
+            Assert.AreEqual(new[] { 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, denseHash);
+        }
+
+        [Test]
+        public void when_getting_the_hex_example()
+        {
+            var lengths = new[] { 64, 7, 255 };
+            var hex = ClassUnderTest.ToHex(lengths);
+            Assert.AreEqual("4007ff", hex);
         }
     }
 }
