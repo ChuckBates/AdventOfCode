@@ -19,6 +19,27 @@ namespace Day11
 
             return (Math.Abs(coordinates[0] - 0) + Math.Abs(coordinates[1] - 0) + Math.Abs(coordinates[2] - 0)) / 2;
         }
+        public int FurthestSteps(string childPath)
+        {
+            if (string.IsNullOrEmpty(childPath))
+            {
+                return 0;
+            }
+
+            var coordinates = new[] {0, 0, 0};
+            var furthestSteps = 0;
+            foreach (var step in childPath.Split(','))
+            {
+                coordinates = Move(coordinates, step);
+                var currentStepsAway = (Math.Abs(coordinates[0] - 0) + Math.Abs(coordinates[1] - 0) + Math.Abs(coordinates[2] - 0)) / 2;
+                if (currentStepsAway > furthestSteps)
+                {
+                    furthestSteps = currentStepsAway;
+                }
+            }
+
+            return furthestSteps;
+        }
 
         public int[] Move(int[] currentCoordinates, string direction)
         {
