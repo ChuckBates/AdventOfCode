@@ -1,21 +1,62 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Day13
 {
     public class PacketScanner
     {
-        public int GetTotalSeverity(Dictionary<int, int[]> scanners)
+        public int GetSmallestDelay(Dictionary<int, int[]> scanners)
         {
-            var iterations = scanners.Keys.Max();
-            var totalSeverity = 0;
-            for (int i = 0; i <= iterations; i++)
+            var start = Stopwatch.StartNew();
+            var delay = 0;
+            while(true)
             {
-                if (IsPacketCaught(i, scanners))
+                var caught = false;
+                foreach (var scanner in scanners)
                 {
-                    totalSeverity += CaughtSeverity(i, scanners);
+                    var time = scanner.Key + delay;
+                    var range = scanner.Value[1];
+                    if (time % ((range - 1) * 2) == 0)
+                    {
+                        caught = true;
+                        break;
+                    }
                 }
-                scanners = MoveScannersForward(scanners);
+                if (!caught)
+                {
+                    Console.Out.WriteLine(start.ElapsedMilliseconds);
+                    return delay;
+                }
+                delay++;
+            }
+        }
+
+        public int GetScannerCycle(int time, int range)
+        {
+            return time % ((range - 1) * 2);
+        }
+
+        public int GetTotalSeverity(int delay, Dictionary<int, int[]> scanners)
+        {
+            var firewallScanners = new Dictionary<int, int[]>();
+            foreach (var scanner in scanners)
+            {
+                var copy = new int[scanner.Value.Length];
+                scanner.Value.CopyTo(copy, 0);
+                firewallScanners.Add(scanner.Key, copy);
+            }
+
+            var iterations = firewallScanners.Keys.Max();
+            var totalSeverity = 0;
+            for (int i = delay * -1; i <= iterations; i++)
+            {
+                if (IsPacketCaught(i, firewallScanners))
+                {
+                    totalSeverity += CaughtSeverity(i, firewallScanners);
+                }
+                firewallScanners = MoveScannersForward(firewallScanners);
             }
 
             return totalSeverity;

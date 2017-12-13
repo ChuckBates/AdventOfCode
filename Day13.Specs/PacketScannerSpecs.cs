@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using NUnit.Framework;
 
 namespace Day13.Specs
@@ -182,7 +183,7 @@ namespace Day13.Specs
                 { 4, new [] { 0, 4, -1 } },
                 { 6, new [] { 0, 4, -1 } }
             };
-            var totalSeverity = ClassUnderTest.GetTotalSeverity(scanners);
+            var totalSeverity = ClassUnderTest.GetTotalSeverity(0, scanners);
             Assert.AreEqual(24, totalSeverity);
         }
 
@@ -235,8 +236,75 @@ namespace Day13.Specs
                 { 84, new[] { 0, 14, -1 } },
                 { 90, new[] { 0, 17, -1 } }
             };
-            var totalSeverity = ClassUnderTest.GetTotalSeverity(scanners);
+            var totalSeverity = ClassUnderTest.GetTotalSeverity(0, scanners);
             Assert.AreEqual(1728, totalSeverity);
+        }
+
+        [Test]
+        public void when_getting_smallest_delay_example()
+        {
+            var scanners = new Dictionary<int, int[]>
+            {
+                { 0, new [] { 0, 3, -1 } },
+                { 1, new [] { 0, 2, -1 } },
+                { 4, new [] { 0, 4, -1 } },
+                { 6, new [] { 0, 4, -1 } }
+            };
+            var totalSeverity = ClassUnderTest.GetSmallestDelay(scanners);
+            Assert.AreEqual(10, totalSeverity);
+        }
+
+        [Test]
+        public void when_getting_smallest_delay_puzzle_input()
+        {
+            var scanners = new Dictionary<int, int[]>
+            {
+                { 0, new[] { 0, 3, -1 } },
+                { 1, new[] { 0, 2, -1 } },
+                { 2, new[] { 0, 4, -1 } },
+                { 4, new[] { 0, 8, -1 } },
+                { 6, new[] { 0, 5, -1 } },
+                { 8, new[] { 0, 6, -1 } },
+                { 10, new[] { 0, 6, -1 } },
+                { 12, new[] { 0, 4, -1 } },
+                { 14, new[] { 0, 6, -1 } },
+                { 16, new[] { 0, 6, -1 } },
+                { 18, new[] { 0, 9, -1 } },
+                { 20, new[] { 0, 8, -1 } },
+                { 22, new[] { 0, 8, -1 } },
+                { 24, new[] { 0, 8, -1 } },
+                { 26, new[] { 0, 8, -1 } },
+                { 28, new[] { 0, 10, -1 } },
+                { 30, new[] { 0, 8, -1 } },
+                { 32, new[] { 0, 12, -1 } },
+                { 34, new[] { 0, 10, -1 } },
+                { 36, new[] { 0, 14, -1 } },
+                { 38, new[] { 0, 12, -1 } },
+                { 40, new[] { 0, 12, -1 } },
+                { 42, new[] { 0, 12, -1 } },
+                { 44, new[] { 0, 12, -1 } },
+                { 46, new[] { 0, 12, -1 } },
+                { 48, new[] { 0, 12, -1 } },
+                { 50, new[] { 0, 14, -1 } },
+                { 52, new[] { 0, 12, -1 } },
+                { 54, new[] { 0, 14, -1 } },
+                { 56, new[] { 0, 12, -1 } },
+                { 58, new[] { 0, 12, -1 } },
+                { 60, new[] { 0, 14, -1 } },
+                { 62, new[] { 0, 18, -1 } },
+                { 64, new[] { 0, 14, -1 } },
+                { 68, new[] { 0, 14, -1 } },
+                { 70, new[] { 0, 14, -1 } },
+                { 72, new[] { 0, 14, -1 } },
+                { 74, new[] { 0, 14, -1 } },
+                { 78, new[] { 0, 14, -1 } },
+                { 80, new[] { 0, 20, -1 } },
+                { 82, new[] { 0, 14, -1 } },
+                { 84, new[] { 0, 14, -1 } },
+                { 90, new[] { 0, 17, -1 } }
+            };
+            var totalSeverity = ClassUnderTest.GetSmallestDelay(scanners);
+            Assert.AreEqual(3946838, totalSeverity);
         }
     }
 }
